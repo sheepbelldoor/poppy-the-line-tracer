@@ -1,7 +1,7 @@
 #include "init.h"
 
 // Motor INITIALIZE
-void pwn_init34(uint16_t period, uint16_t duty3, uint16_t duty4){
+void pwm_init34(uint16_t period, uint16_t duty3, uint16_t duty4){
     //CCR0 period
     TIMER_A0->CCR[0] = period;
 
@@ -41,7 +41,7 @@ void motor_init(void) {
     P2->DIR |= 0xC0;
     P2->OUT &= ~0xC0;
 
-    pwn_init34(7500,0,0);
+    pwm_init34(7500,0,0);
 }
 
 void timer_A3_capture_init(void) {
@@ -87,32 +87,12 @@ void ir_sensor_init(void) {
     P7->DIR &= ~0xFF;
 }
 
-// LED UTILITY
-void led_init(void) {
-    P2->SEL0 &= ~0x07;
-    P2->SEL1 &= ~0x07;
-
-    P2->DIR |= 0x07;
-
-    P2->OUT &= ~0x07;
-}
-
-void turn_on_led(int color) {
-    P2->OUT &= ~0x07;
-    P2->OUT |= color;
-}
-
-void turn_off_led() {
-    P2->OUT &= ~0x07;
-}
 
 void init_all(void) {
     Clock_Init48MHz();
-    pwn_init34();
     motor_init();
     timer_A3_capture_init();
     switch_init();
     ir_sensor_init();
-    led_init();
 }
     
