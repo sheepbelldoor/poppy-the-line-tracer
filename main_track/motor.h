@@ -6,9 +6,13 @@
 #include <stdio.h>
 #include <stdint.h>
 
+int left_count_g;
+int right_count_g;
+// using in main
+int left;
+int right;
 
 // ROTATE FUNCTION
-
 
 void TA3_N_IRQHandler(void);
 void TA3_0_IRQHandler(void);
@@ -22,7 +26,8 @@ void rotate_left_90_degree(int speed);
 void rotate_right_90_degree(int speed);
 void rotate_left_degree(int speed, int degree);
 void rotate_right_degree(int speed, int degree);
-
+void u_turn(int distance, uint16_t speed);
+void u_turn2(int distance, uint16_t speed);
 
 // MOVE FUNCTION
 void move(uint16_t leftDuty, uint16_t rightDuty);
