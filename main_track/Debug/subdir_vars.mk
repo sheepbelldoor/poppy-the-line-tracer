@@ -13,6 +13,7 @@ C_SRCS += \
 ../init.c \
 ../main.c \
 ../motor.c \
+../section.c \
 ../startup_msp432p401r_ccs.c \
 ../system_msp432p401r.c 
 
@@ -21,6 +22,7 @@ C_DEPS += \
 ./init.d \
 ./main.d \
 ./motor.d \
+./section.d \
 ./startup_msp432p401r_ccs.d \
 ./system_msp432p401r.d 
 
@@ -29,6 +31,7 @@ OBJS += \
 ./init.obj \
 ./main.obj \
 ./motor.obj \
+./section.obj \
 ./startup_msp432p401r_ccs.obj \
 ./system_msp432p401r.obj 
 
@@ -37,6 +40,7 @@ OBJS__QUOTED += \
 "init.obj" \
 "main.obj" \
 "motor.obj" \
+"section.obj" \
 "startup_msp432p401r_ccs.obj" \
 "system_msp432p401r.obj" 
 
@@ -45,6 +49,7 @@ C_DEPS__QUOTED += \
 "init.d" \
 "main.d" \
 "motor.d" \
+"section.d" \
 "startup_msp432p401r_ccs.d" \
 "system_msp432p401r.d" 
 
@@ -53,6 +58,7 @@ C_SRCS__QUOTED += \
 "../init.c" \
 "../main.c" \
 "../motor.c" \
+"../section.c" \
 "../startup_msp432p401r_ccs.c" \
 "../system_msp432p401r.c" 
 
