@@ -6,12 +6,12 @@
 void TA3_N_IRQHandler(void) {
     TIMER_A3->CCTL[1] &= ~0x0001;
     left_count_g++;
-    left_taco++;
+    left++;
 }
 void TA3_0_IRQHandler(void) {
     TIMER_A3->CCTL[0] &= ~0x0001;
     right_count_g++;
-    right_taco++;
+    right++;
 }
 
 void rotate_left_30_degree(int speed) {
@@ -174,6 +174,36 @@ void u_turn2(int distance, uint16_t speed) {
     }
 }
 
+void rotate_left_degree(int speed, int degree) {
+    left_count_g = 0;
+    right_count_g = 0;
+    int count = degree * 2;
+    // rotate by degree 
+    while(1) {
+        left_backward();
+        right_forward();
+        move(speed,speed);
+        if(left_count_g>count && right_count_g>count) {
+            move(0,0);
+            break;
+        }
+    }
+}
+void rotate_right_degree(int speed, int degree) {
+    left_count_g = 0;
+    right_count_g = 0;
+    int count = degree * 2;
+    // rotate by degree 
+    while(1) {
+        left_forward();
+        right_backward();
+        move(speed,speed);
+        if(left_count_g>count && right_count_g>count) {
+            move(0,0);
+            break;
+        }
+    }
+}
 
 
 // Move function parameter is move speed.
