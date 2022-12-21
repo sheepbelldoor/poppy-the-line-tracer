@@ -1,18 +1,16 @@
 #include "motor.h"
 
-
-
 // Function used to determine the turning radius.
 void TA3_N_IRQHandler(void) {
     TIMER_A3->CCTL[1] &= ~0x0001;
     left_count_g++;
-    left++;
 }
 void TA3_0_IRQHandler(void) {
     TIMER_A3->CCTL[0] &= ~0x0001;
     right_count_g++;
-    right++;
 }
+
+
 
 void rotate_left_30_degree(int speed) {
     left_count_g = 0;
@@ -73,10 +71,11 @@ void rotate_right_45_degree(int speed) {
         }
     }
 }
+
 void rotate_left_60_degree(int speed) {
     left_count_g = 0;
     right_count_g = 0;
-    // rotation 30 degree
+    // rotate by 60 degree
     while(1) {
         left_backward();
         right_forward();
@@ -87,10 +86,11 @@ void rotate_left_60_degree(int speed) {
         }
     }
 }
+
 void rotate_right_60_degree(int speed) {
     left_count_g = 0;
     right_count_g = 0;
-    // rotation 30 degree
+    // rotate by 60 degree
     while(1) {
         left_forward();
         right_backward();
@@ -101,10 +101,11 @@ void rotate_right_60_degree(int speed) {
         }
     }
 }
+
 void rotate_left_90_degree(int speed) {
     left_count_g = 0;
     right_count_g = 0;
-    // rotation 30 degree
+    // rotate by 90 degree
     while(1) {
         left_backward();
         right_forward();
@@ -115,10 +116,11 @@ void rotate_left_90_degree(int speed) {
         }
     }
 }
+
 void rotate_right_90_degree(int speed) {
     left_count_g = 0;
     right_count_g = 0;
-    // rotation 30 degree
+    // rotate by 90 degree
     while(1) {
         left_forward();
         right_backward();
@@ -129,51 +131,6 @@ void rotate_right_90_degree(int speed) {
         }
     }
 }
-
-void u_turn(int distance, uint16_t speed) {
-
-    P3->OUT |= 0xC0;
-    TIMER_A0->CCR[3] = speed;
-    TIMER_A0->CCR[4] = speed;
-
-    left_forward();
-    right_forward();
-    left_count_g = 0;
-    right_count_g = 0;
-
-    int dist = distance * 16.3702;
-
-    while(1) {
-        move(speed, 0);
-        if(right_count_g>dist) {
-            move(0,0);
-            break;
-        }
-    }
-}
-
-void u_turn2(int distance, uint16_t speed) {
-
-    P3->OUT |= 0xC0;
-    TIMER_A0->CCR[3] = speed;
-    TIMER_A0->CCR[4] = speed;
-
-    left_forward();
-    right_forward();
-    left_count_g = 0;
-    right_count_g = 0;
-
-    int dist = distance * 16.3702;
-
-    while(1) {
-        move(0, speed);
-        if(left_count_g>dist) {
-            move(0,0);
-            break;
-        }
-    }
-}
-
 void rotate_left_degree(int speed, int degree) {
     left_count_g = 0;
     right_count_g = 0;
@@ -226,9 +183,13 @@ void right_forward() {
 void right_backward() {
     P5->OUT |= 0x20;
 }
-
 /* 16.3702 is 1cm */
 void move_forward(int distance, uint16_t speed) {
+
+    P3->OUT |= 0xC0;
+    TIMER_A0->CCR[3] = speed;
+    TIMER_A0->CCR[4] = speed;
+
     left_forward();
     right_forward();
     left_count_g = 0;
@@ -237,8 +198,52 @@ void move_forward(int distance, uint16_t speed) {
     int dist = distance * 16.3702;
 
     while(1) {
-        move(speed, speed);
+        move(speed+80, speed);
         if(left_count_g>dist && right_count_g>dist) {
+            move(0,0);
+            break;
+        }
+    }
+}
+
+void u_turn(int distance, uint16_t speed) {
+
+    P3->OUT |= 0xC0;
+    TIMER_A0->CCR[3] = speed;
+    TIMER_A0->CCR[4] = speed;
+
+    left_forward();
+    right_forward();
+    left_count_g = 0;
+    right_count_g = 0;
+
+    int dist = distance * 16.3702;
+
+    while(1) {
+        move(speed, 0);
+        if(right_count_g>dist) {
+            move(0,0);
+            break;
+        }
+    }
+}
+
+void u_turn2(int distance, uint16_t speed) {
+
+    P3->OUT |= 0xC0;
+    TIMER_A0->CCR[3] = speed;
+    TIMER_A0->CCR[4] = speed;
+
+    left_forward();
+    right_forward();
+    left_count_g = 0;
+    right_count_g = 0;
+
+    int dist = distance * 16.3702;
+
+    while(1) {
+        move(0, speed);
+        if(left_count_g>dist) {
             move(0,0);
             break;
         }
@@ -249,22 +254,6 @@ void stop() {
     P2->OUT &= ~0xC0;
 }
 
-void move_distance(int distance, uint16_t left_speed, uint16_t right_speed) {
-    left_forward();
-    right_forward();
-    left_count_g = 0;
-    right_count_g = 0;
-
-    int dist = distance * 16.3702;
-
-    while(1) {
-        move(left_speed, right_speed);
-        if(left_count_g>dist && right_count_g>dist) {
-            move(0,0);
-            break;
-        }
-    }
-}
 
 // IRQ Handler
 // uint16_t first_left;
