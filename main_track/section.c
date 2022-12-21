@@ -21,7 +21,7 @@ void section5(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
 }
 
 void section6(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
-    straight_no_turn(left_speed, right_speed, SPEED);
+    straight_turn_right(left_speed, right_speed, SPEED);
 }
 
 void section7(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
@@ -47,21 +47,28 @@ void section11(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
     straight_turn_right(left_speed, right_speed, SPEED);
 
     // Second shortcut
-    straight_turn_left(left_speed, right_speed, SPEED);
-    u_turn(5, SPEED);
     straight_turn_left_without_tracing(left_speed, right_speed, SPEED);
+    u_turn(5, SPEED); // right 
+    straight_turn_left_without_tracing(left_speed, right_speed, SPEED);
+    u_turn2(5,SPEED);
 
     // Sharp curve
     straight_turn_right_without_tracing(left_speed, right_speed, SPEED);
-    move_forward(3, SPEED);
-    u_turn2(7, SPEED);
+    u_turn2(5,SPEED);
+    move_forward(6, SPEED);
+    // u_turn2(7, SPEED);
 
     // Third shortcut
     straight_turn_left(left_speed, right_speed, SPEED);
-    u_turn2(3, SPEED);
-    straight_turn_left(left_speed, right_speed, SPEED);
+    move_forward(5,SPEED);
+    u_turn2(15, SPEED);
+    straight_turn_left_without_tracing(left_speed, right_speed, SPEED);
+    u_turn(5,SPEED);
 
     straight_turn_right(left_speed, right_speed, SPEED);
+    // straight_turn_right(left_speed, right_speed, SPEED);
+    u_turn2(16,SPEED);
+    move_forward(5,SPEED);
     straight_turn_right(left_speed, right_speed, SPEED);
 }
 
@@ -78,7 +85,7 @@ void section12(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
     straight_turn_right(left_speed, right_speed, SPEED);
 
     straight_turn_left(left_speed, right_speed, speed);
-    move_forward(5, speed);
+    move_forward(2, speed);
     rotate_right_degree(ROTATE_SPEED, 40);
 }
 
@@ -90,7 +97,8 @@ void section14(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
     straight_turn_right(left_speed, right_speed, SPEED);
     
     move_until_white(left_speed, right_speed, SPEED);
-    rotate_right_degree(ROTATE_SPEED, 140);
+    rotate_right_degree(ROTATE_SPEED, 145);
+    move_forward(10,SPEED);
 
     straight_turn_left(left_speed, right_speed, SPEED);
     straight_turn_right(left_speed, right_speed, SPEED);
@@ -189,7 +197,7 @@ void straight_turn_right (uint16_t left_speed, uint16_t right_speed, uint16_t sp
         left_forward();
 
 
-        if(ts1 > 200 && ts1<800) {
+        if(ts1 > 300 && ts1<1300) {
             move_forward(1, speed);
             rotate_right_degree(ROTATE_SPEED, 70);
             move_forward(1, speed);
@@ -198,22 +206,22 @@ void straight_turn_right (uint16_t left_speed, uint16_t right_speed, uint16_t sp
             P9->OUT &= ~0x04;
             break;
         }
-        else if(ts2 > 200 && ts2 < 800) {
+        else if(ts2 > 300 && ts2 < 1300) {
             left_forward();
             right_backward();
             move(1000, 1000);
         }
-        else if (ts7 > 200 && ts7 < 800) {
+        else if (ts7 > 300 && ts7 < 1300) {
             left_backward();
             right_forward();
             move(1000, 1000);
         } 
-        else if (ts3 > 200 && ts3 < 800) {
-            move(LOW_SPEED, SPEED);
+        else if (ts3 > 300 && ts3 < 1300) {
+            move(left_speed-200, right_speed);
         }
         
-        else if (ts6 > 200 && ts6 < 800) {
-            move(SPEED, LOW_SPEED);
+        else if (ts6 > 300 && ts6 < 1300) {
+            move(left_speed, right_speed-200);
         } 
         
         else {
@@ -305,9 +313,9 @@ void straight_turn_right_without_tracing(uint16_t left_speed, uint16_t right_spe
         left_forward();
 
 
-        if(ts1 > 200 && ts1<800) {
+        if(ts1 > 300 && ts1<1300) {
             move_forward(1, speed);
-            rotate_right_degree(ROTATE_SPEED, 70);
+            rotate_right_degree(ROTATE_SPEED, 73);
             move_forward(1, speed);
 
             P5->OUT &= ~0x08;
@@ -315,12 +323,12 @@ void straight_turn_right_without_tracing(uint16_t left_speed, uint16_t right_spe
             break;
         }
         
-        else if (ts3 > 200 && ts3 < 800) {
-            move(LOW_SPEED, SPEED);
+        else if (ts3 > 300 && ts3 < 1300) {
+            move(left_speed-200, right_speed);
         }
         
-        else if (ts6 > 200 && ts6 < 800) {
-            move(SPEED, LOW_SPEED);
+        else if (ts6 > 300 && ts6 < 1300) {
+            move(left_speed, right_speed-200);
         } 
         
         else {
@@ -418,11 +426,11 @@ void move_until_white(uint16_t left_speed, uint16_t right_speed, uint16_t speed)
             P9->OUT &= ~0x04;
             break;
         }
-        else if (ts3 > 200 && ts3 < 800) {
-            move(LOW_SPEED, SPEED);
+        else if (ts3 > 300 && ts3 < 1300) {
+            move(left_speed-200, right_speed);
         }
-        else if (ts6 > 200 && ts6 < 800) {
-            move(SPEED, LOW_SPEED);
+        else if (ts6 > 300 && ts6 < 1300) {
+            move(left_speed, right_speed-200);
         } 
         else {
             move(left_speed, right_speed);
@@ -435,7 +443,7 @@ void move_until_white(uint16_t left_speed, uint16_t right_speed, uint16_t speed)
     }
 }
 
-void move_lap2(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
+void move_lap2(uint16_t left_speed, uint16_t right_speed, uint16_t speed, int lap_count) {
     while(1) {
         P5->OUT |= 0x08;
         P9->OUT |= 0x04;
@@ -513,17 +521,21 @@ void move_lap2(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
         left_forward();
 
 
-        if((ts4>200 && ts5>200) && (ts3>200 || ts6>200)) {
-            move_forward(2, speed);
+        if(ts4>300 && ts5>300 && ts3>300 && ts6>300 && (lap_count == 0)) {
+            move_forward(3, 2000);
             P5->OUT &= ~0x08;
             P9->OUT &= ~0x04;
             break;
         }
-        else if (ts3 > 200 && ts3 < 800) {
-            move(LOW_SPEED, SPEED);
+        else if (ts4>300 && ts5>300 && ts3>300 && ts6>300 && (lap_count == 1)){
+            move(0, 0);
+            break;
         }
-        else if (ts6 > 200 && ts6 < 800) {
-            move(SPEED, LOW_SPEED);
+        else if (ts3 > 300 && ts3 < 1300) {
+            move(left_speed-200, right_speed);
+        }
+        else if (ts6 > 300 && ts6 < 1300) {
+            move(left_speed, right_speed-200);
         } 
         else {
             move(left_speed, right_speed);
@@ -615,29 +627,28 @@ void straight_no_turn(uint16_t left_speed, uint16_t right_speed, uint16_t speed)
         left_forward();
 
 
-        if(ts1 > 200 || ts8>200) {
+        if(ts1 > 300 || ts8>300) {
 
             move_forward(4, speed);
             P5->OUT &= ~0x08;
             P9->OUT &= ~0x04;
             break;
         }
-        else if (ts7 > 200 && ts7 < 800) {
+        else if (ts7 > 300 && ts7 < 1300) {
             left_backward();
             right_forward();
             move(left_speed, right_speed);
         } 
-        else if(ts2 > 200 && ts2 < 800) {
+        else if(ts2 > 300 && ts2 < 1300) {
             left_forward();
             right_backward();
             move(left_speed, right_speed);
         }
-        else if (ts3 > 200 && ts3 < 800) {
-            move(LOW_SPEED, SPEED);
+        else if (ts3 > 300 && ts3 < 1300) {
+            move(left_speed-200, right_speed);
         }
-        
-        else if (ts6 > 200 && ts6 < 800) {
-            move(SPEED, LOW_SPEED);
+        else if (ts6 > 300 && ts6 < 1300) {
+            move(left_speed, right_speed-200);
         } 
         
         else {
@@ -729,29 +740,29 @@ void straight_turn_left(uint16_t left_speed, uint16_t right_speed, uint16_t spee
         left_forward();
 
 
-        if(ts8 > 200 && ts8 <800) {
+        if(ts8 > 300 && ts8 <1300) {
             move_forward(1,SPEED);
-            rotate_left_degree(ROTATE_SPEED, 73);
+            rotate_left_degree(ROTATE_SPEED, 76);
             move_forward(1,SPEED);
             P5->OUT &= ~0x08;
             P9->OUT &= ~0x04;
             break;
         }
-        else if (ts7 > 200 && ts7 < 800) {
+        else if (ts7 > 300 && ts7 < 1300) {
             left_backward();
             right_forward();
             move(left_speed, right_speed);
         } 
-         else if(ts2 > 200 && ts2 < 800) {
+         else if(ts2 > 300 && ts2 < 1300) {
             left_forward();
             right_backward();
             move(left_speed, right_speed);
         }
-        else if (ts3 > 200 && ts3 < 800) {
-            move(LOW_SPEED, SPEED);
+        else if (ts3 > 300 && ts3 < 1300) {
+            move(left_speed-200, right_speed);
         }
-        else if (ts6 > 200 && ts6 < 800) {
-            move(SPEED, LOW_SPEED);
+        else if (ts6 > 300 && ts6 < 1300) {
+            move(left_speed, right_speed-200);
         } 
         
         else {
@@ -843,19 +854,19 @@ void straight_turn_left_without_tracing(uint16_t left_speed, uint16_t right_spee
         left_forward();
 
 
-        if(ts8 > 200 && ts8 <800) {
+        if(ts8 > 300 && ts8 <1300) {
             move_forward(1,SPEED);
-            rotate_left_degree(ROTATE_SPEED, 70);
+            rotate_left_degree(ROTATE_SPEED, 73);
             move_forward(1,SPEED);
             P5->OUT &= ~0x08;
             P9->OUT &= ~0x04;
             break;
         }
-        else if (ts3 > 200 && ts3 < 800) {
-            move(LOW_SPEED, SPEED);
+        else if (ts3 > 300 && ts3 < 1300) {
+            move(left_speed-200, right_speed);
         }
-        else if (ts6 > 200 && ts6 < 800) {
-            move(SPEED, LOW_SPEED);
+        else if (ts6 > 300 && ts6 < 1200) {
+            move(left_speed, right_speed-200);
         } 
         
         else {

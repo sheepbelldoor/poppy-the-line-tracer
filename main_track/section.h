@@ -2,10 +2,10 @@
 #define __SECTION_H__
 
 
-#define SPEED 2000
-#define LEFT_SPEED 2000
+#define SPEED 3000
+#define LEFT_SPEED 2080
 #define RIGHT_SPEED 2000
-#define LOW_SPEED 1800
+#define LOW_SPEED 2700
 #define MAX_SPEED 4000
 #define ROTATE_SPEED 3000
 
@@ -32,7 +32,8 @@ void section14(uint16_t left_speed, uint16_t right_speed, uint16_t speed);
 void straight_turn_right (uint16_t left_speed, uint16_t right_speed, uint16_t speed);
 void straight_turn_right_without_tracing(uint16_t left_speed, uint16_t right_speed, uint16_t speed);
 void move_until_white(uint16_t left_speed, uint16_t right_speed, uint16_t speed);
-void move_lap2(uint16_t left_speed, uint16_t right_speed, uint16_t speed);
+void move_until_all_white(uint16_t left_speed, uint16_t right_speed, uint16_t speed);
+void move_lap2(uint16_t left_speed, uint16_t right_speed, uint16_t speed, int lap_count);
 void straight_no_turn(uint16_t left_speed, uint16_t right_speed, uint16_t speed);
 void straight_turn_left(uint16_t left_speed, uint16_t right_speed, uint16_t speed);
 void straight_turn_left_without_tracing(uint16_t left_speed, uint16_t right_speed, uint16_t speed);
