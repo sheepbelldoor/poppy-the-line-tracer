@@ -8,9 +8,6 @@
 
 int left_count_g;
 int right_count_g;
-// using in main
-int left;
-int right;
 
 // ROTATE FUNCTION
 
@@ -28,6 +25,8 @@ void rotate_left_degree(int speed, int degree);
 void rotate_right_degree(int speed, int degree);
 void u_turn(int distance, uint16_t speed);
 void u_turn2(int distance, uint16_t speed);
+void rotate_left_until_black(int speed);
+void rotate_right_until_black(int speed);
 
 // MOVE FUNCTION
 void move(uint16_t leftDuty, uint16_t rightDuty);

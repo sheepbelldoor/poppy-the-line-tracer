@@ -2,12 +2,14 @@
 #define __SECTION_H__
 
 
-#define SPEED 3000
-#define LEFT_SPEED 2080
-#define RIGHT_SPEED 2000
+#define SPEED 1500
+#define LEFT_SPEED 1580
+#define RIGHT_SPEED 1500
 #define LOW_SPEED 2700
 #define MAX_SPEED 4000
-#define ROTATE_SPEED 3000
+#define ROTATE_SPEED 2000
+#define RIGHT_DEGREE 70
+#define LEFT_DEGREE 73
 
 #include <stdio.h>
 #include <stdint.h>
