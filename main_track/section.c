@@ -97,7 +97,7 @@ void section14(uint16_t left_speed, uint16_t right_speed, uint16_t speed) {
     straight_turn_right(left_speed, right_speed, SPEED);
     
     move_until_white(left_speed, right_speed, SPEED);
-    rotate_right_degree(ROTATE_SPEED, 140);
+    rotate_right_degree(ROTATE_SPEED, 137);
     move_forward(13,SPEED);
 
     straight_turn_left(left_speed, right_speed, SPEED);
