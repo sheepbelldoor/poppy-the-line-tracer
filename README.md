@@ -1,1 +1,3 @@
-# poppy-the-line-tracer
+# poppy-the-linetracer
+Microprocessor Project - Linetracer
+with poppy
